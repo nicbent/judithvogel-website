@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { posts } from '../../lib/posts';
+---
+<Base title="Vogelperspektiven" image={posts[0]?.image}>
+  <section class="blog">
+    {posts.map((p, i) => (
+      <article class="fade">
+        <a href={p.url}>
+          {p.image && <img src={p.image} alt="" loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />}
+          <h2>{p.title}</h2>
+        </a>
+        <p>{p.excerpt}</p>
+      </article>
+    ))}
+  </section>
+</Base>

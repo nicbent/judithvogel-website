@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import Split from '../../components/Split.astro';
+
+const zeiten = Array.from({ length: 12 }, (_, i) => {
+  const h = (n: number) => String(n).padStart(2, '0') + ':00';
+  return `${h(8 + i)} - ${h(9 + i)} Uhr`;
+});
+---
+<Base title="Kontakt" image="/images/kontakt.jpg">
+  <Split title="KONTAKT" image="/images/kontakt.jpg" tag="Kennenlernen." first>
+    <div class="lg">
+      <p>Judith Vogel<br />Heilpraktikerin für Psychotherapie</p>
+      <p>Friedensweg 4<br />22609 Hamburg</p>
+      <p>Für ein unverbindliches Kennenlernen und <br />Terminanfragen freue ich mich auf deinen Anruf oder eine Mail.</p>
+      <p><a href="tel:00491744675795">+49 (0) 174 4675 795</a></p>
+      <p><a href="mailto:mail@judithvogel.de?subject=Kontaktaufnahme%20Judith%20Vogel">mail@judithvogel.de</a></p>
+    </div>
+
+    <div id="kontaktformular">
+      <p class="lg">Auf diesem Wege kannst du mich auch kontaktieren:</p>
+
+      <!-- Netlify Forms: Einsendungen landen im Netlify-Dashboard unter „Forms“
+           und können per E-Mail weitergeleitet werden. -->
+      <form class="form" name="kontakt" method="POST" action="/kontakt/danke/" data-netlify="true" netlify-honeypot="website">
+        <input type="hidden" name="form-name" value="kontakt" />
+        <p class="hp"><label>Nicht ausfüllen: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
+
+        <div>
+          <label for="f-name">Name <span class="req">*</span></label>
+          <input id="f-name" type="text" name="name" autocomplete="name" required />
+        </div>
+        <div>
+          <label for="f-email">E-Mail-Adresse <span class="req">*</span></label>
+          <input id="f-email" type="email" name="email" autocomplete="email" required />
+        </div>
+        <div>
+          <label for="f-tel">Telefon <span class="req">*</span></label>
+          <input id="f-tel" type="tel" name="telefon" autocomplete="tel" required />
+        </div>
+        <div>
+          <label for="f-zeit">Bevorzugte Rückrufzeit</label>
+          <select id="f-zeit" name="rueckrufzeit">
+            <option value="">Uhrzeit auswählen</option>
+            {zeiten.map((z) => <option>{z}</option>)}
+          </select>
+        </div>
+        <div>
+          <label for="f-msg">Nachricht</label>
+          <textarea id="f-msg" name="nachricht"></textarea>
+        </div>
+        <div class="check">
+          <input id="f-ds" type="checkbox" name="datenschutz" value="zugestimmt" required />
+          <label for="f-ds">Hiermit stimme ich der <a href="/datenschutz">Datenschutzerklärung</a> zu.</label>
+        </div>
+        <button type="submit">Senden</button>
+      </form>
+    </div>
+  </Split>
+</Base>

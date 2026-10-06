@@ -1,0 +1,197 @@
+/* Design-Werte übernommen von der Squarespace-Seite (Stand Okt. 2026) */
+:root {
+  --bg: #fafafa;
+  --text: #000;
+  --muted: rgba(0, 0, 0, 0.55);
+  --font: Optima, 'Optima Nova', Candara, 'Segoe UI', 'Noto Sans', sans-serif;
+
+  --header-h: 80px;
+  --edge: 29px;                                   /* Außenabstand links/rechts */
+  --max: 1392px;                                  /* 24 Spalten à 58px */
+  --cw: min(calc(100vw - 2 * var(--edge)), var(--max));
+  --row: calc(var(--cw) / 46.25);                 /* Squarespace-Rasterzeile (~30px bei 1392px) */
+  --img-h: calc(var(--cw) * 10 / 24 * 30 / 29);   /* Bildhöhe rechte Spalte */
+
+  --fs-h1: 32.8px;
+  --fs-lg: 18.1px;
+  --fs: 16px;
+  --fs-sm: 13.8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-padding-top: var(--header-h); }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: var(--fs);
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-weight: 500; margin: 0; }
+h1 { font-size: var(--fs-h1); line-height: 1.44; }
+h2 { font-size: 1.4rem; line-height: 1.4; margin: 2em 0 0.6em; }
+
+p { margin: 1em 0; }
+p:first-child { margin-top: 0; }
+p:last-child { margin-bottom: 0; }
+
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+img { display: block; max-width: 100%; }
+
+.lg { font-size: var(--fs-lg); }
+.right { text-align: right; }
+.justify { text-align: justify; hyphens: auto; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: fixed; inset: 0 0 auto 0; z-index: 10;
+  height: var(--header-h);
+  background: var(--bg);
+  display: flex; align-items: flex-start;
+  padding: 15px var(--edge) 0;
+}
+.nav { display: flex; gap: 0 22px; flex-wrap: wrap; }
+.nav a { text-decoration: none; font-size: 16px; line-height: 27px; padding: 0 0 2px; }
+.nav a[aria-current='page'] { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; }
+
+.menu-toggle { display: none; }
+
+main { padding-top: var(--header-h); min-height: 70vh; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-block: 110px !important;
+  padding: 0 calc(var(--edge) + 4px);
+  font-size: var(--fs-sm);
+}
+.site-footer nav { display: flex; gap: 40px; }
+.site-footer p { margin: 0; }
+.brand { display: none; text-decoration: none; font-size: 16px; }
+
+/* ---------- Split-Abschnitt (Überschrift links, Bild + Text rechts) ---------- */
+.split {
+  width: var(--cw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 12fr 10fr 2fr;
+  padding: calc(var(--row) * 2.6 + var(--pad-top, 0px)) 0 calc(var(--row) * 3);
+}
+.split__head { position: relative; }
+.split__head h1 {
+  position: sticky;
+  top: 30vh;
+  margin-top: calc(var(--img-h) / 2 - 24px);
+  text-align: center;
+  padding: 0 var(--row);
+}
+.split__img { width: 100%; height: var(--img-h); object-fit: cover; }
+.split__tag { text-align: right; font-size: var(--fs-lg); margin: calc(var(--row) * 0.5) 0 calc(var(--row) * 0.6); }
+.split__body > * + * { margin-top: var(--row); }
+
+.button {
+  display: inline-block;
+  font-weight: 600; letter-spacing: 0.02em;
+  text-decoration: none;
+  padding: 2px 0;
+  margin-top: var(--row);
+}
+.button:hover { text-decoration: underline; }
+
+/* Angebot: Übersicht der Sprunglinks */
+.jumps { display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--row) * 0.9) 0; margin-top: var(--row); }
+.jumps p { margin: 0; }
+
+/* Konditionen */
+.prices { margin-top: var(--row); }
+.prices__title { font-size: var(--fs-lg); margin-bottom: 4px; }
+.prices__row {
+  display: flex; justify-content: space-between; gap: 16px;
+  border-top: 1px solid #000;
+  padding: 6px 0 calc(var(--row) * 0.6);
+}
+.prices__row:last-child { border-bottom: 1px solid #000; }
+.prices__row span:last-child { text-align: right; }
+
+/* ---------- Textseiten (Impressum, Datenschutz) ---------- */
+.legal { width: var(--cw); margin: 0 auto; padding: calc(var(--row) * 3) 0 var(--row); }
+.legal__inner { max-width: calc(var(--cw) * 12 / 24); }
+.legal h1 { margin-bottom: var(--row); }
+.legal ul { padding-left: 1.2em; }
+.legal li p { margin: 0; }
+.legal a { word-break: break-word; }
+
+/* ---------- Kontaktformular ---------- */
+.form { margin-top: var(--row); display: grid; gap: 22px; }
+.form label { display: block; font-size: 16px; margin-bottom: 6px; }
+.form .req { color: var(--muted); font-size: 0.85em; }
+.form input[type='text'], .form input[type='email'], .form input[type='tel'], .form select, .form textarea {
+  width: 100%; font: inherit; font-size: 16px; color: inherit;
+  background: transparent; border: 1px solid #000; border-radius: 0;
+  padding: 10px 20px; min-height: 46px;
+}
+.form textarea { min-height: 100px; resize: vertical; }
+.form select { appearance: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23000'/%3E%3C/svg%3E") no-repeat right 18px center; }
+.form .check { display: flex; gap: 12px; align-items: flex-start; }
+.form .check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: #000; }
+.form .check label { margin: 0; }
+.form button {
+  justify-self: start; font: inherit; font-weight: 600; font-size: 16px;
+  background: transparent; color: inherit; border: 1px solid #000; border-radius: 0;
+  padding: 16px 21px; cursor: pointer;
+}
+.form button:hover { background: #000; color: var(--bg); }
+.hp { position: absolute; left: -9999px; }
+
+/* ---------- Vogelperspektiven ---------- */
+.blog { width: var(--cw); margin: 0 auto; padding: calc(var(--row) * 1.2) calc(var(--cw) / 24) calc(var(--row) * 2); columns: 2; column-gap: calc(var(--cw) / 12); }
+.blog article { break-inside: avoid; margin-bottom: calc(var(--row) * 3); }
+.blog a { text-decoration: none; }
+.blog img { width: 100%; height: auto; margin-bottom: 14px; }
+.blog h2 { font-size: var(--fs-lg); font-weight: 400; margin: 0 0 12px; }
+.blog p { margin: 0; }
+
+.post { width: var(--cw); margin: 0 auto; padding: calc(var(--row) * 1) 0 calc(var(--row) * 2); }
+.post h1 { margin-bottom: 12px; }
+.pager { display: flex; justify-content: space-between; margin-top: calc(var(--row) * 3); }
+.pager a { text-decoration: none; display: inline-flex; align-items: center; gap: 16px; }
+.pager svg { width: 10px; height: 18px; }
+
+/* ---------- Einblenden wie bei Squarespace ---------- */
+.fade { opacity: 0; transition: opacity 1.5s ease; }
+.fade.in { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .fade { opacity: 1; transition: none; } }
+.no-js .fade { opacity: 1; }
+
+/* ---------- Mobil ---------- */
+@media (max-width: 767px) {
+  :root { --edge: 20px; --row: 22px; --img-h: calc((100vw - 40px) * 30 / 29); --fs-h1: 28px; --header-h: 64px; }
+
+  .site-header { align-items: center; padding-top: 0; justify-content: space-between; }
+  .brand { display: block; }
+  .menu-toggle {
+    display: block; background: none; border: 0; padding: 8px 0; margin-left: auto; cursor: pointer;
+    width: 28px;
+  }
+  .menu-toggle span { display: block; height: 1px; background: #000; margin: 6px 0; }
+  .nav {
+    display: none; position: fixed; inset: var(--header-h) 0 0 0; background: var(--bg);
+    flex-direction: column; gap: 18px; padding: 30px var(--edge);
+  }
+  .nav a { font-size: 22px; line-height: 1.4; align-self: flex-start; }
+  .menu-open .nav { display: flex; }
+
+  .split { grid-template-columns: 1fr; padding-top: var(--row); }
+  .split__head h1 { position: static; margin: 0 0 var(--row); padding: 0; }
+  .split__gap { display: none; }
+
+  .legal__inner { max-width: none; }
+  .blog { columns: 1; padding-inline: 0; }
+  .site-footer { padding-block: 60px !important; flex-direction: column-reverse; align-items: flex-start; gap: 16px; }
+}

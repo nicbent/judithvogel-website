@@ -1,0 +1,16 @@
+{
+  "name": "judithvogel-website",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "fetch-images": "node scripts/fetch-images.mjs",
+    "prebuild": "node scripts/fetch-images.mjs --soft",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.3.6"
+  }
+}

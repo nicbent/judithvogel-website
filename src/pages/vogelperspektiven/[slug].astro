@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import { posts } from '../../lib/posts';
+
+export function getStaticPaths() {
+  return posts.map((p, i) => ({
+    params: { slug: p.slug },
+    props: { i },
+  }));
+}
+
+const { i } = Astro.props;
+const post = posts[i];
+const newer = posts[i - 1];
+const older = posts[i + 1];
+const { Content } = post;
+---
+<Base title={post.title} description={post.excerpt.slice(0, 160)} image={post.image}>
+  <article class="post">
+    <h1>{post.title}</h1>
+    <Content />
+
+    <nav class="pager" aria-label="Weitere Beiträge">
+      <div>
+        {newer && (
+          <a href={newer.url}>
+            <svg viewBox="0 0 10 18" aria-hidden="true"><path d="M9 1 1 9l8 8" fill="none" stroke="currentColor" /></svg>
+            {newer.title}
+          </a>
+        )}
+      </div>
+      <div>
+        {older && (
+          <a href={older.url}>
+            {older.title}
+            <svg viewBox="0 0 10 18" aria-hidden="true"><path d="m1 1 8 8-8 8" fill="none" stroke="currentColor" /></svg>
+          </a>
+        )}
+      </div>
+    </nav>
+  </article>
+</Base>

@@ -1,0 +1,29 @@
+---
+// Der typische Abschnitt der Seite: große Überschrift links,
+// rechts Bild, Stichwort (rechtsbündig), Text und optional ein Button.
+interface Props {
+  id?: string;
+  title: string;
+  image: string;
+  alt?: string;
+  tag?: string;
+  button?: { label: string; href: string };
+  padTop?: number; // Abstand oben in Rasterzeilen (Squarespace: 0 oder 4)
+  first?: boolean;
+}
+const { id, title, image, alt = '', tag, button, padTop = 0, first = false } = Astro.props;
+---
+<section class="split" id={id} style={padTop ? `--pad-top: calc(var(--row) * ${padTop})` : undefined}>
+  <div class="split__head">
+    <h1 class="fade">{title}</h1>
+  </div>
+  <div class="split__main">
+    <img class="split__img fade" src={image} alt={alt} loading={first ? 'eager' : 'lazy'} decoding="async" />
+    {tag && <p class="split__tag fade">{tag}</p>}
+    <div class="split__body fade">
+      <slot />
+    </div>
+    {button && <a class="button fade" href={button.href}>{button.label}</a>}
+  </div>
+  <div class="split__gap"></div>
+</section>
